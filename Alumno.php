@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Alumno</title>
+<link rel="stylesheet" type="text/css" href="foundation/stylesheets/foundation.css">
 </head>
 <?php
 error_reporting(E_ALL & ~E_NOTICE);  
@@ -13,10 +14,10 @@ error_reporting(E_ALL & ~E_NOTICE);
 session_start();
 include("conexion.php");
 
-$nombre=$_REQUEST[nombre_1];
-$clave=$_REQUEST[clave_1];
+$nombre=$_REQUEST["nombre_1"];
+$clave=$_REQUEST["clave_1"];
 
-$registros=mysql_query("select * from alumnos where nombre='$nombre' and  clave='$clave'",$conexion)or die("Problemas en el Select".mysql_error());
+$registros=mysql_query("select * from alumnos where nombre='$nombre' and  clave='$clave'",$conexion) or die("Problemas en el Select ".mysql_error());
 
 if($reg=mysql_fetch_array($registros))
 {
@@ -27,11 +28,14 @@ if($reg=mysql_fetch_array($registros))
 
 if($_SESSION['nombre_1'] != NULL && $_SESSION['clave_1'] != NULL)
 {
-$registro_2=mysql_query("select * from calificaciones where clave_alumno=$_SESSION[clave_1]")or die("Problemas en el Select".mysql_error());
+$registro_2=mysql_query("select * from calificaciones where clave_alumno='$_SESSION[clave_1]'")or die("Problemas en el Select ".mysql_error());
 ?>
 <table width="1000" border="0" align="center">
   <tr>
-	<div align="left"><?php echo "Bienvenido ".$_SESSION['nombre_1']; echo '<br>';?><a href="cerrar_sesion.php">Cerrar Sesion</a></div>
+	<div align="left"><h3><?php echo "Bienvenido ".$_SESSION['nombre_1']; echo '</h3><br>';?>
+    <p align="center"><a class="button red nice" href="cerrar_sesion.php">Cerrar Sesion</a></p>
+    <br>
+  </div>
 	</td>
   </tr>
   <tr>
